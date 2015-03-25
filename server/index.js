@@ -9,7 +9,7 @@ var nunjucks = require('nunjucks');
 var CLIENT_DIR = path.join(__dirname, '..', 'client');
 nunjucks.configure(CLIENT_DIR);
 
-var HOST = '192.168.1.91';
+var HOST = '127.0.0.1';
 var PORT = '8111';
 
 var server = new hapi.Server();

@@ -8,18 +8,8 @@
 <body>
   <h1>Firefox First Run Experience</h1>
 
-  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;" width="400px" height="600px;" src="http://127.0.0.1:3030/signin?webChannelId=sync&service=sync&chromeless"></iframe>
+  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;" width="400px" height="600px;" src="http://127.0.0.1:3030/signin?webChannelId=sync&service=sync&context=fx_desktop_v1&chromeless"></iframe>
   </div>
-
-  <script>
-
-    window.addEventListener('WebChannelMessageToContent', (e) => {
-      var fxaContentWindow = document.getElementById('fxa').contentWindow;
-      console.log('web channel message: %s', JSON.stringify(e.detail));
-      var proxiedMessage = JSON.stringify(e.detail);
-      fxaContentWindow.postMessage(proxiedMessage, 'http://127.0.0.1:3030');
-    }, true);
-  </script>
 </body>
 </html>
 
