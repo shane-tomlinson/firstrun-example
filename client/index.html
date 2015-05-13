@@ -8,8 +8,22 @@
 <body>
   <h1>Firefox First Run Experience</h1>
 
-  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;" width="400px" height="600px;" src="http://127.0.0.1:3030/signin?webChannelId=sync&service=sync&context=fx_desktop_v1&chromeless"></iframe>
-  </div>
+  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;" width="400px" height="600px;" src="http://127.0.0.1:3030/?service=sync&context=iframe&style=chromeless"></iframe>
+
+  <script>
+    var iframeTarget = document.querySelector('#fxa').contentWindow;
+
+    window.addEventListener('message', function (e) {
+      console.log('received a message: ', e.origin);
+      console.log('data: ', e.data);
+      if (e.origin === 'http://127.0.0.1:3030') {
+        var data = JSON.parse(e.data);
+        if (data.command === 'ping') {
+          iframeTarget.postMessage(e.data, 'http://127.0.0.1:3030');
+        }
+      }
+    }, true);
+  </script>
 </body>
 </html>
 
