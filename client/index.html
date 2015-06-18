@@ -21,7 +21,7 @@
         var data = JSON.parse(e.data);
         if (data.command === 'ping') {
           iframeTarget.postMessage(e.data, 'http://127.0.0.1:3030');
-        } else if (data.command === 'height') {
+        } else if (data.command === 'resize') {
           var height = data.data.height;
           var newHeight = height + 20;
           iframe.setAttribute('height', newHeight + 'px');
