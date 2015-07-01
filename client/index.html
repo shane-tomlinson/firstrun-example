@@ -8,19 +8,25 @@
 <body>
   <h1>Firefox First Run Experience</h1>
 
-  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;overflow:hidden" width="400px" height="600px;" src="http://127.0.0.1:3030/?service=sync&context=iframe&style=chromeless"></iframe>
+  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;overflow:hidden" width="400px" height="600px;" src="https://stomlinson.dev.lcip.org/?service=sync&context=iframe&style=chromeless"></iframe>
 
   <script>
+    var SERVER_ORIGIN = 'https://stomlinson.dev.lcip.org';
+    var IFRAME_SRC = SERVER_ORIGIN + '?service=sync&context=iframe&style=chromeless';
+
     var iframe = document.querySelector('#fxa');
+
+    iframe.setAttribute('src', IFRAME_SRC);
+
     var iframeTarget = iframe.contentWindow;
 
     window.addEventListener('message', function (e) {
       console.log('received a message: ', e.origin);
       console.log('data: ', e.data);
-      if (e.origin === 'http://127.0.0.1:3030') {
+      if (e.origin === SERVER_ORIGIN) {
         var data = JSON.parse(e.data);
         if (data.command === 'ping') {
-          iframeTarget.postMessage(e.data, 'http://127.0.0.1:3030');
+        iframeTarget.postMessage(e.data, SERVER_ORIGIN);
         } else if (data.command === 'resize') {
           var height = data.data.height;
           var newHeight = height + 20;
