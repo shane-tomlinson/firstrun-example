@@ -4,11 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0" />
   <title>Example First Run</title>
+  <style>
+    body {
+      background-color: #079cd8;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      color: #fff;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    #iframe-container {
+      margin: 20px auto 0;
+      padding-top: 30px;
+      width: 400px;
+      border-radius: 6px;
+      background: #fff none;
+      text-align: center;
+    }
+
+    #iframe-container h3 {
+      color: #333;
+      margin-bottom: 0px;
+      font-weight: 300;
+    }
+
+    #fxa {
+      opacity: 1;
+      display: block;
+      margin: 5px 0px;
+      border: 0px none;
+      width: 400px;
+      overflow: hidden;
+      transition: all 0.25s ease 0s;
+    }
+  </style>
 </head>
 <body>
   <h1>Firefox First Run Experience</h1>
 
-  <iframe id='fxa' style="display: block; margin: 50px auto; border:none;overflow:hidden" width="400px" height="600px;"></iframe>
+  <div id="iframe-container">
+    <h3 id="fxa-header">Sign in to Firefox</h3>
+    <iframe id="fxa" width="400px" height="300px;"></iframe>
+  </div>
 
   <script>
     var SERVER_ORIGIN = 'http://127.0.0.1:3030';
