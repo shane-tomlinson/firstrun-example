@@ -40,35 +40,10 @@
   <h1>Firefox First Run Experience</h1>
 
   <div id="iframe-container">
-    <iframe id="fxa" width="400px" height="300px;"></iframe>
+    <iframe src="http://127.0.0.1:3030?utm_campaign=fxa-embedded-form&utm_medium=referral&utm_source=firstrun&utm_content=fx-40.0&entrypoint=firstrun&service=sync&context=iframe&style=chromeless" id="fxa" width="400px" height="300px;"></iframe>
   </div>
 
-  <script>
-    var SERVER_ORIGIN = 'http://127.0.0.1:3030';
-    //var SERVER_ORIGIN = 'https://stomlinson.dev.lcip.org';
-    var IFRAME_SRC = SERVER_ORIGIN + '?service=sync&context=iframe&style=chromeless&campaign=spring2015&entrypoint=firstrun';
-
-    var iframe = document.querySelector('#fxa');
-
-    iframe.setAttribute('src', IFRAME_SRC);
-
-    var iframeTarget = iframe.contentWindow;
-
-    window.addEventListener('message', function (e) {
-      console.log('received a message: ', e.origin);
-      console.log('data: ', e.data);
-      if (e.origin === SERVER_ORIGIN) {
-        var data = JSON.parse(e.data);
-        if (data.command === 'ping') {
-        iframeTarget.postMessage(e.data, SERVER_ORIGIN);
-        } else if (data.command === 'resize') {
-          var height = data.data.height;
-          var newHeight = height;// + 20;
-          iframe.setAttribute('height', newHeight + 'px');
-        }
-      }
-    }, true);
-  </script>
+  <script src="/responder.js"></script>
 </body>
 </html>
 
