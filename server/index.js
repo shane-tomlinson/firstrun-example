@@ -28,14 +28,13 @@ server.route({
     });
   }
 });
+
 server.route({
   method: 'GET',
   path: '/responder.js',
   handler: function (request, reply) {
     nunjucks.render('responder.js', function (err, res) {
-      setTimeout(function () {
-        reply(res);
-      }, Math.random() * 3000);
+      reply(res);
     });
   }
 });
