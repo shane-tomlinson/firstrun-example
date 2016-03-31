@@ -31,11 +31,11 @@ server.route({
 
 server.route({
   method: 'GET',
-  path: '/responder.js',
-  handler: function (request, reply) {
-    nunjucks.render('responder.js', function (err, res) {
-      reply(res);
-    });
+  path: '/{filename}',
+  handler: {
+    file: function (request) {
+      return request.params.filename;
+    }
   }
 });
 
