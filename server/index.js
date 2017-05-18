@@ -23,7 +23,14 @@ server.route({
   method: 'GET',
   path: '/',
   handler: function (request, reply) {
-    nunjucks.render('index.html', function (err, res) {
+
+    nunjucks.render('index.html', {
+      bodyClass: request.query.bodyClass || '',
+      country: request.query.country,
+      forceExperiment: request.query.forceExperiment,
+      forceExperimentGroup: request.query.forceExperimentGroup,
+      pathname: request.query.pathname || '',
+    }, function (err, res) {
       reply(res);
     });
   }

@@ -37,10 +37,14 @@
       background: #fff none;
       border-radius: 6px;
       margin: 80px auto 0 auto;
-      padding: 25px 6px;
+      padding: 0;
       position: relative;
       text-align: center;
-      width: 318px;
+      width: 400px;
+    }
+
+    .withskip #iframe-container {
+      padding: 25px 6px;
     }
 
     #fxa {
@@ -50,10 +54,15 @@
       opacity: 1;
       overflow: hidden;
       transition: all 0.25s ease 0s;
+      width: 400px;
+    }
+
+    .withskip #iframe-container, .withskip #fxa {
       width: 318px;
     }
 
     #skip {
+      display: block;
       background-color: #0996f8;
       border-radius: 3px;
       border: 1px solid #0670cc;
@@ -73,25 +82,34 @@
     }
 
     #firefox-logo {
+      display: none;
+    }
+
+    .withskip #firefox-logo {
       background-image: url("/release-logo-high-res.312908b7dbc4.png");
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
+      display: block;
       height: 80px;
       position: absolute;
-      right: 125px;
       top: -55px;
       width: 80px;
+      right: 125px;
     }
   </style>
+
+  <meta name="pathname" content="{{pathname}}" />
 </head>
-<body>
+<body class="{{ bodyClass }}">
   <h1>Firefox First Run Experience</h1>
 
   <div id="iframe-container">
     <div id="firefox-logo"></div>
-    <iframe scrolling="no" id="fxa" width="400px" height="300px;"></iframe>
+    <iframe scrolling="no" id="fxa" height="300px;" data-pathname="{{pathname}}" data-country="{{country}}" data-forceExperiment="{{forceExperiment}}" data-forceExperimentGroup="{{forceExperimentGroup}}"></iframe>
+    {% if bodyClass %}
     <button id="skip">Skip this step</div>
+    {% endif %}
   </div>
 
 

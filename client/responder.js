@@ -18,12 +18,14 @@ window.addEventListener('message', function (e) {
       var newHeight = height;// + 20;
       iframe.setAttribute('height', newHeight + 'px');
     } else if (data.command === 'form_engaged') {
-      removeSkipEl();
+      //removeSkipEl();
       //disableSkipEl();
     } else if (data.command === 'form_disabled') {
-      //enableSkipEl();
+      enableSkipEl();
     } else if (data.command === 'form_enabled') {
-      //disableSkipEl();
+      disableSkipEl();
+    } else if (data.command === 'login') {
+      document.location.href = `${SERVER_ORIGIN}/settings`;
     } else if (data.command === 'navigated') {
       switch(data.data.url) {
         case 'signin':
@@ -43,20 +45,26 @@ window.addEventListener('message', function (e) {
 function removeSkipEl () {
   const skipEl = document.getElementById('skip');
   if (skipEl) {
-    skipEl.style.border = 'none';
+    skipEl.style.display = 'none';
+    /*skipEl.style.border = 'none';
     skipEl.style.padding = '0';
     skipEl.style.height = '0';
-    skipEl.style.overflow = 'hidden';
+    skipEl.style.overflow = 'hidden';*/
   }
 }
 
 function showSkipEl () {
   const skipEl = document.getElementById('skip');
   if (skipEl) {
+    skipEl.style.display = 'block';
+    /*
     skipEl.style.border = '';
     skipEl.style.padding = '';
     skipEl.style.height = '';
     skipEl.style.overflow = '';
+    */
+    enableSkipEl();
+
   }
 }
 
@@ -74,11 +82,20 @@ function disableSkipEl () {
   }
 }
 
-document.getElementById('skip').addEventListener('click', () => {
-  alert('skip');
-});
+const skipEl = document.getElementById('skip');
+if (skipEl) {
+  skipEl.addEventListener('click', () => {
+    alert('skip');
+  });
+}
 
 
-var IFRAME_SRC = SERVER_ORIGIN + '/signin?service=sync&haltAfterSignIn=true&context=fx_firstrun_v2&style=chromeless&origin=' + document.location.origin;
 
-iframe.setAttribute('src', IFRAME_SRC);
+const country = encodeURIComponent(iframe.getAttribute('data-country') || 'US');
+const forceExperiment = encodeURIComponent(iframe.getAttribute('data-forceExperiment'));
+const forceExperimentGroup = encodeURIComponent(iframe.getAttribute('data-forceExperimentGroup') || 'treatment');
+const pathname = iframe.getAttribute('data-pathname');
+
+const IFRAME_SRC = SERVER_ORIGIN + `/${pathname}?service=sync&haltAfterSignIn=true&context=fx_firstrun_v2&style=chromeless&country=${country}&forceExperiment=${forceExperiment}&forceExperimentGroup=${forceExperimentGroup}&origin=${document.location.origin}`;
+
+iframe.setAttribute('src', IFRAME_SRC);//'http://127.0.0.1:3030');
